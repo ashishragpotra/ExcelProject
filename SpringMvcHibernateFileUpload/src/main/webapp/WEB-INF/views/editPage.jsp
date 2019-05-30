@@ -12,8 +12,10 @@
 </head>
 <body>
 
+<c:set var="url"><%= request.getContextPath() %></c:set>
+
 <div align="left">
-<a href="<%= request.getContextPath() %>">Home Page</a>
+<a href="${url}">Home Page</a>
 </div>
 
 

@@ -1,0 +1,13 @@
+build/
+*.classpath
+.settings/
+.gradle/
+test-output/
+bin/
+/.git
+/.metadata/
+.project
+*.class
+pom.properties
+/target/
+
