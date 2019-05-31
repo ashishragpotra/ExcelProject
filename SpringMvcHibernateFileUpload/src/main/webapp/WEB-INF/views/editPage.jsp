@@ -2,6 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<c:set var="url"><%= request.getContextPath() %></c:set>
+
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="${url}/WEB-INF/js/jquery.form.js"/>"></script>
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
      "http://www.w3.org/TR/html4/loose.dtd">
@@ -12,14 +17,10 @@
 </head>
 <body>
 
-<c:set var="url"><%= request.getContextPath() %></c:set>
 
 <div align="left">
 <a href="${url}">Home Page</a>
 </div>
-
-
-
 	<div align="center">
 		<h1>Hi Buddy this is your file data !!!</h1>
 
@@ -50,15 +51,25 @@
 							<td>${geologicalSections.class1Code}</td>
 							<td>${geologicalSections.class2Name}</td>
 							<td>${geologicalSections.class2Code}</td>
-							<td><a href="<c:url value="${fileId}/geologicalSectionId/${geologicalSections.id}"/>">Delete</a></td>
+							<td><input type="button" id  onclick="deleteData(${fileId},${geologicalSections.id});"></td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
 		</c:if>
-
-
-
 	</div>
+	
+	<script type="text/javascript">
+	function deleteData(fileId,geologicalSectionsId){
+		console.log("url is  >>>>>>>>" + "file/"+fileId+"/geologicalSectionId/"+geologicalSectionsId);
+		$.ajax({
+		    url: "file/"+fileId+"/geologicalSectionId/"+geologicalSectionsId,
+		    context: document.body,
+		    success: function(){
+		      $(this).addClass("done");
+		    }
+		});
+	}
+</script>
 </body>
 </html>
