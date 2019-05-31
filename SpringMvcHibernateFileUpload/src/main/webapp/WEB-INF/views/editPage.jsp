@@ -5,7 +5,7 @@
 <c:set var="url"><%= request.getContextPath() %></c:set>
 
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-<script type="text/javascript" src="${url}/WEB-INF/js/jquery.form.js"/>"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery.form.js"/>"></script>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
