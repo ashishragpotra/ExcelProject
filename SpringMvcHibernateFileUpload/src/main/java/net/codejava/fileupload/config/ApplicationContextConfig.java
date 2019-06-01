@@ -36,35 +36,35 @@ public class ApplicationContextConfig {
     }
      
     //This is for Mysql Database
-//    @Bean(name = "dataSource")
-//    public DataSource getDataSource() {
-//    	BasicDataSource dataSource = new BasicDataSource();
-//    	dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-//    	dataSource.setUrl("jdbc:mysql://localhost:3306/filedb");
-//    	dataSource.setUsername("root");
-//    	dataSource.setPassword("P@ssw0rd");
-//    	
-//    	return dataSource;
-//    }
-    
-
-    //This is for SQlserver Database
     @Bean(name = "dataSource")
     public DataSource getDataSource() {
     	BasicDataSource dataSource = new BasicDataSource();
-    	dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-    	dataSource.setUrl("jdbc:sqlserver://DIAMOND-DEV22:1433;databaseName=testDb");
-    	dataSource.setUsername("sa");
-    	dataSource.setPassword("Bebo@123");
+    	dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+    	dataSource.setUrl("jdbc:mysql://localhost:3306/testdb");
+    	dataSource.setUsername("root");
+    	dataSource.setPassword("12345");
+    	
     	return dataSource;
     }
+    
+
+    //This is for SQlserver Database
+//    @Bean(name = "dataSource")
+//    public DataSource getDataSource() {
+//    	BasicDataSource dataSource = new BasicDataSource();
+//    	dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+//    	dataSource.setUrl("jdbc:sqlserver://DIAMOND-DEV22:1433;databaseName=testDb");
+//    	dataSource.setUsername("sa");
+//    	dataSource.setPassword("Bebo@123");
+//    	return dataSource;
+//    }
     
     
     
     private Properties getHibernateProperties() {
     	Properties properties = new Properties();
     	properties.put("hibernate.show_sql", "true");
-    	properties.put("hibernate.dialect", "org.hibernate.dialect.SQLServerDialect");
+    	properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
     	properties.put("hibernate.hbm2ddl.auto", "update");
     	return properties;
     }

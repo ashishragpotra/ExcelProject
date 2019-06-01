@@ -10,5 +10,7 @@ public interface FileUploadDAO {
 	List<UploadFile> getListOfUploadFiles();
 
 	int deleteFileAndGeologicalSections(Long fileId);
+	
+	String getFileName(Long fileId);
 
 }

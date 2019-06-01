@@ -32,9 +32,6 @@ public class UploadController {
 	@Autowired
 	private FileUploadDAO fileUploadDao;
 	
-	@Autowired
-	private GeologicalSectionDAO geologicalSectionDAO;
-	
 	@RequestMapping(value = "/doUpload", method = RequestMethod.POST)
 	public String handleFileUpload(HttpServletRequest request, @RequestParam CommonsMultipartFile[] fileUpload)
 			throws Exception {

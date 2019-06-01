@@ -22,7 +22,7 @@ public class GeologicalSectionsDTO {
 	@ExcelColumnHeader(columnHeader = "Class 1 Code", dataType = "String", defaultValue = "")
 	private String class1Code;
 	
-	@ExcelColumnHeader(columnHeader = "Class 2 name", dataType = "String", defaultValue = "")
+	@ExcelColumnHeader(columnHeader = "Class 2 Name", dataType = "String", defaultValue = "")
 	private String class2Name;
 	
 	@ExcelColumnHeader(columnHeader = "Class 2 Code", dataType = "String", defaultValue = "")
@@ -34,14 +34,6 @@ public class GeologicalSectionsDTO {
 
 	public void setSectionName(String sectionName) {
 		this.sectionName = sectionName;
-	}
-
-	public String getClass1Name() {
-		return class1Name;
-	}
-
-	public void setClass1Name(String class1Name) {
-		this.class1Name = class1Name;
 	}
 
 	public String getClass1Code() {
@@ -68,6 +60,15 @@ public class GeologicalSectionsDTO {
 		this.class2Code = class2Code;
 	}
 
+	public String getClass1Name() {
+		return class1Name;
+	}
+	
+	public void setClass1Name(String class1Name) {
+		this.class1Name = class1Name;
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "GeologicalSectionsDTO [sectionName=" + sectionName + ", class1Name=" + class1Name + ", class1Code="

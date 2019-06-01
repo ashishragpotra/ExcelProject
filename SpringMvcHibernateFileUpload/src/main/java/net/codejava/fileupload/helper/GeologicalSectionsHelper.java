@@ -14,6 +14,11 @@ import java.util.Objects;
 import java.util.UUID;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.gizbel.excel.enums.ExcelFactoryType;
@@ -30,7 +35,7 @@ public class GeologicalSectionsHelper {
 
 	public static List<GeologicalSections> uploadExcelInDatabase(CommonsMultipartFile file) throws Exception {
 		List<GeologicalSections> geologicalSectionsList = new ArrayList<>();
-		
+
 		File filesw = createTempFile(file.getInputStream());
 		Parser parser = new Parser(GeologicalSectionsDTO.class, ExcelFactoryType.COLUMN_NAME_BASED_EXTRACTION);
 		List<GeologicalSectionsDTO> result = setGeologicalSectionsUploadDtoList(parser.parse(filesw));
@@ -40,7 +45,7 @@ public class GeologicalSectionsHelper {
 			geologicalSections.setClass1Code(uploadExcelDTO.getClass1Code());
 			geologicalSections.setClass1Name(uploadExcelDTO.getClass1Name());
 			geologicalSections.setClass2Code(uploadExcelDTO.getClass2Code());
-			geologicalSections.setClass2Name(uploadExcelDTO.getClass2Code());
+			geologicalSections.setClass2Name(uploadExcelDTO.getClass2Name());
 			geologicalSectionsList.add(geologicalSections);
 		}
 		return geologicalSectionsList;
@@ -70,4 +75,39 @@ public class GeologicalSectionsHelper {
 		}
 		return geologicalSectionsDTOList;
 	}
+
+	public static HSSFWorkbook download(List<GeologicalSections> list) throws IOException {
+		HSSFWorkbook workbook = new HSSFWorkbook(); // new HSSFWorkbook() for generating `.xls` file
+		HSSFSheet sheet = workbook.createSheet("Sheet1");
+		//sheet.addMergedRegion(new CellRangeAddress(0, 0,0,6));
+		HSSFRow headerRow = sheet.createRow(0);
+
+		String[] columns = { "id", "Section Name", "Class 1 Name", "Class 1 Code", "Class 2 Name", "Class 2 Code" };
+
+		for (int i = 0; i < columns.length; i++) {
+			HSSFCell cell = headerRow.createCell(i);
+			cell.setCellValue(columns[i]);
+		}
+
+		int rowNum = 1;
+		int colNum = 0;
+		for (GeologicalSections geologicalSections : list) {
+			Row row = sheet.createRow(rowNum++);
+			row.createCell(colNum++).setCellValue(geologicalSections.getId());
+			sheet.autoSizeColumn(colNum);
+			row.createCell(colNum++).setCellValue(geologicalSections.getSectionName());
+			sheet.autoSizeColumn(colNum);
+			row.createCell(colNum++).setCellValue(geologicalSections.getClass1Name());
+			sheet.autoSizeColumn(colNum);
+			row.createCell(colNum++).setCellValue(geologicalSections.getClass1Code());
+			sheet.autoSizeColumn(colNum);
+			row.createCell(colNum++).setCellValue(geologicalSections.getClass2Name());
+			sheet.autoSizeColumn(colNum);
+			row.createCell(colNum++).setCellValue(geologicalSections.getClass2Code());
+			sheet.autoSizeColumn(colNum);
+			colNum = 0;
+		}
+		return workbook;
+	}
+
 }

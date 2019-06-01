@@ -41,8 +41,19 @@ public class FileUploadDAOImpl implements FileUploadDAO {
 	@Override
 	@Transactional
 	public int deleteFileAndGeologicalSections(Long fileId) {
+		String deleteChildFirst = "delete from GeologicalSections where upload.id=:fileId";
+		int childDeleted = sessionFactory.getCurrentSession().createQuery(deleteChildFirst).setParameter("fileId", fileId).executeUpdate();
+		System.out.println("Child deleted Count is " + childDeleted);
+
 		String deleteHql = "delete from UploadFile where id=:fileId";
 		return sessionFactory.getCurrentSession().createQuery(deleteHql).setParameter("fileId", fileId).executeUpdate();
+	}
+
+	@Override
+	@Transactional
+	public String getFileName(Long fileId) {
+		String hql="select fileName from UploadFile where id=:fileId";
+		return (String) sessionFactory.getCurrentSession().createQuery(hql).setParameter("fileId", fileId).uniqueResult();
 	}
 
 	

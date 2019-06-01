@@ -2,6 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<c:set var="url"><%=request.getContextPath()%></c:set>
+
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/js/jquery.form.js" />
+">
+</script>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
      "http://www.w3.org/TR/html4/loose.dtd">
@@ -46,11 +54,30 @@
 								<td>${uploadFile.id}</td>
 								<td>${uploadFile.fileName}</td>
 								<td><a href="<c:url value="file/${uploadFile.id}"/>">Edit File</a></td>
-								<td><a href="<c:url value="deleteFile/${uploadFile.id}"/>">Delete File</a></td>
+								<!--  <td><a href="<c:url value="deleteFile/${uploadFile.id}"/>">Delete File</a></td>-->
+								<td><input type="button" name="delete" onclick="deleteFile(${uploadFile.id});"></td>
 							</tr>
 						</c:forEach>
 					</tbody>
 					</table>
 	</c:if>
+	
+	<script type="text/javascript">
+	function deleteFile(fileId){
+		console.log("url is  >>>>>>>>" + "deleteFile/"+fileId);
+		$.ajax({
+		    url: "/SpringHibernateFileUpload/deleteFile/"+fileId,
+		    context: document.body,
+		    success: function(data){
+		    	console.log("inside")
+		    	 setTimeout(function() 
+		    	  {
+		    	    window.location.reload();  //Refresh page
+		    	  }, 1000);
+		    	}
+		   	});
+	}
+	
+</script>
 </body>
 </html>
