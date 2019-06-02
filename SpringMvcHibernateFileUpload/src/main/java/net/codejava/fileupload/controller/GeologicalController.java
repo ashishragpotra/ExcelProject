@@ -62,8 +62,9 @@ public class GeologicalController {
 	public void downloadExcel(HttpServletRequest request, HttpServletResponse response, @PathVariable Long fileId) throws IOException {
 		request.setAttribute("fileId", fileId);
 
-		String fileName= fileUploadDao.getFileName(fileId);
-		
+		String fileNameFromDB= fileUploadDao.getFileName(fileId);
+		String fileNameArray[] = fileNameFromDB.split("\\.");
+		String fileName = fileNameArray[0];
 		
 		List<GeologicalSections> list = geologicalSectionDAO.getGeologicalSectionsWithFileId(fileId);
 		HSSFWorkbook workbook =null;
@@ -78,7 +79,7 @@ public class GeologicalController {
 			response.setContentType("application/ms-excel");
 			response.setContentLength(outArray.length); 
 			response.setHeader("Expires:", "0"); // eliminates browser caching
-			response.setHeader("Content-Disposition", "attachment; filename="+fileName);
+			response.setHeader("Content-Disposition", "attachment; filename="+fileName+".xls");
 			OutputStream outStream = response.getOutputStream();
 			outStream.write(outArray);
 			outStream.flush();

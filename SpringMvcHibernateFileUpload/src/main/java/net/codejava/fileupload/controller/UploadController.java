@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import net.codejava.fileupload.dao.FileUploadDAO;
-import net.codejava.fileupload.dao.GeologicalSectionDAO;
 import net.codejava.fileupload.helper.GeologicalSectionsHelper;
 import net.codejava.fileupload.model.GeologicalSections;
 import net.codejava.fileupload.model.UploadFile;
